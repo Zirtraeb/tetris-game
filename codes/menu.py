@@ -37,6 +37,7 @@ class Menu:
                 
                 grid_surface = self.game_instance.display.grid()
                 self.screen.blit(grid_surface, (0, 0))
+                self.game_instance.display.draw_tetromino(self.screen, self.game_instance.current_tetromino)
 
             pygame.display.flip()
 

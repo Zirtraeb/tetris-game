@@ -17,6 +17,17 @@ class Display:
         background.fill(COLOR_BLACK)
         for y in range(GRID_HEIGHT):
             for x in range(GRID_WIDTH):
-                pygame.draw.rect(background, COLOR_WHITE, 
+                pygame.draw.rect(background, COLOR_WHITE,  
                                 (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE), 1)
         return background
+    
+    def draw_tetromino(self, surface, tetromino):
+        shape_rotations = SHAPES[tetromino.shape]
+        current_grid = shape_rotations[tetromino.rotation % len(shape_rotations)]
+        
+        for row_index, row in enumerate(current_grid):
+            for col_index, cell in enumerate(row):
+                if cell == 1:
+                    x = (tetromino.x + col_index) * GRID_SIZE
+                    y = (tetromino.y + row_index) * GRID_SIZE
+                    pygame.draw.rect(surface, tetromino.color, (x, y, GRID_SIZE, GRID_SIZE))

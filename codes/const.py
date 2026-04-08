@@ -11,13 +11,13 @@ COLOR_YELLOW = (255, 255, 0)
 COLOR_ORANGE = (255, 165, 0)
 COLOR_CYAN = (0, 255, 255)
 
-COLORS = [COLOR_BLACK, COLOR_WHITE, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_YELLOW, COLOR_ORANGE, COLOR_CYAN]
+COLORS = [COLOR_WHITE, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_YELLOW, COLOR_ORANGE, COLOR_CYAN]
 
 
 #G
 GRID_SIZE = 30
-GRID_WIDTH = GRID_SIZE * 10
-GRID_HEIGHT = GRID_SIZE * 20
+GRID_WIDTH = 20
+GRID_HEIGHT = 23
 
 
 #K
@@ -37,15 +37,20 @@ MENU_OPTION = ["Start Game"]
 
 #S
 SHAPES = [
-    [[1, 1, 1, 1]],                  # I
-    [[1, 1], [1, 1]],                # O
-    [[0, 1, 0], [1, 1, 1]],          # T
-    [[0, 1, 1], [1, 1, 0]],          # S
-    [[1, 1, 0], [0, 1, 1]],          # Z
-    [[1, 0, 0], [1, 1, 1]],          # J
-    [[0, 0, 1], [1, 1, 1]],           # L
-    [[1, 1], [1, 1], [0, 1], [1, 1]] # Semicolon
+
+    [[[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]], 
+    [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]]],
+    
+    # O-Shape (1 rotation)
+    [[[1, 1], [1, 1]]],
+    
+    # T-Shape (4 rotations)
+    [[[0, 1, 0], [1, 1, 1], [0, 0, 0]], 
+    [[0, 1, 0], [0, 1, 1], [0, 1, 0]],
+    [[0, 0, 0], [1, 1, 1], [0, 1, 0]],
+    [[0, 1, 0], [1, 1, 0], [0, 1, 0]]]
 ]
+
 
 
 
