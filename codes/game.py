@@ -1,4 +1,9 @@
 
 
+from codes.display import Display
+
+
 class Game:
-    pass
+    display = Display()
+    display.grid()
+    display.display()

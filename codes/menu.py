@@ -7,7 +7,8 @@ class Menu:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        self.show_splash = True  #initial screen
+        self.show_splash = True 
+        self.game_instance = Game()#initial screen
 
     def text_menu(self, text_size, text, text_color, text_center_pos):
         font = pygame.font.SysFont('arial', text_size, bold=True)
@@ -33,7 +34,9 @@ class Menu:
                 self.text_menu(20, "PRESS ANY KEY TO START", COLOR_YELLOW, 
                                (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 +300))
             else:
-                Game()
+                
+                grid_surface = self.game_instance.display.grid()
+                self.screen.blit(grid_surface, (0, 0))
 
             pygame.display.flip()
 
