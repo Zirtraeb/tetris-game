@@ -37,6 +37,7 @@ class Menu:
                 
                 grid_surface = self.game_instance.display.grid()
                 self.screen.blit(grid_surface, (0, 0))
+                self.game_instance.display.draw_field(self.screen, self.game_instance.field)
                 self.game_instance.display.draw_tetromino(self.screen, self.game_instance.current_tetromino)
 
             pygame.display.flip()
@@ -46,7 +47,34 @@ class Menu:
                     pygame.quit()
                     quit()
                 
-                
                 if event.type == pygame.KEYDOWN:
                     if self.show_splash:
                         self.show_splash = False
+                        
+                    else:                        
+                        if event.key == pygame.K_UP:  # rotate
+                            self.game_instance.current_tetromino.rotate()
+                            if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                                for _ in range(3):
+                                    self.game_instance.current_tetromino.rotate()  # Rotate back if hits a wall or another piece
+                                    
+                        if event.key == pygame.K_DOWN: # soft drop
+                            self.game_instance.current_tetromino.y += 1
+                            if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                                self.game_instance.current_tetromino.y -= 1
+                                self.game_instance.lock_piece(self.game_instance.current_tetromino) #lock piece in place if it can't move down
+                        
+                        if event.key == pygame.K_LEFT: # move
+                            self.game_instance.current_tetromino.x -= 1
+                            if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                                self.game_instance.current_tetromino.x += 1
+                                
+                        if event.key == pygame.K_RIGHT: # move
+                            self.game_instance.current_tetromino.x += 1
+                            if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                                self.game_instance.current_tetromino.x -= 1    
+                        
+                        if event.key == pygame.K_SPACE: # hard drop 
+                            while self.game_instance.valid_move(self.game_instance.current_tetromino): #keep going until it hits something
+                                self.game_instance.current_tetromino.y += 1
+                            self.game_instance.current_tetromino.y -= 1

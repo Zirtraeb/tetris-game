@@ -12,6 +12,7 @@ class Display:
         font = pygame.font.SysFont("Arial", 24)
         title_font = pygame.font.SysFont("Arial", 48, bold=True)
         
+        
     def grid(self):
         background = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
         background.fill(COLOR_BLACK)
@@ -21,9 +22,10 @@ class Display:
                                 (x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE), 1)
         return background
     
+    
     def draw_tetromino(self, surface, tetromino):
         shape_rotations = SHAPES[tetromino.shape]
-        current_grid = shape_rotations[tetromino.rotation % len(shape_rotations)]
+        current_grid = shape_rotations[tetromino.rotation]
         
         for row_index, row in enumerate(current_grid):
             for col_index, cell in enumerate(row):
@@ -31,3 +33,15 @@ class Display:
                     x = (tetromino.x + col_index) * GRID_SIZE
                     y = (tetromino.y + row_index) * GRID_SIZE
                     pygame.draw.rect(surface, tetromino.color, (x, y, GRID_SIZE, GRID_SIZE))
+                    
+                    
+    def draw_field(self, surface, field):
+        for y, row in enumerate(field):
+            for x, color in enumerate(row):
+                if color != (0, 0, 0):  # If the cell is not empty
+                    pygame.draw.rect(surface, color, (
+                        x * GRID_SIZE,
+                        y * GRID_SIZE,
+                        GRID_SIZE,
+                        GRID_SIZE
+                    ))

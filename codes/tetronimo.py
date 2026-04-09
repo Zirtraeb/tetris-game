@@ -14,7 +14,6 @@ class Tetromino:
     
     def rotate(self):
         self.rotation = (self.rotation + 1) % len(SHAPES[self.shape])
-        return self.rotation
     
     ''' def get_position(self):
         blocks = []
