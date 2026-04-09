@@ -59,11 +59,16 @@ class Game:
 
     def clear_lines(self):
         lines_cleared = 0
-        for y in range (GRID_HEIGHT -1, -1, -1): # check from bottom to top
-            if (0, 0, 0)not in self.field[y]: # if there is no black
-                del self.field[y] # delete full row
+        y = GRID_HEIGHT - 1
+        while y >= 0:
+            if (0, 0, 0) not in self.field[y]: # check if there is no black cell
+                del self.field[y]
                 self.field.insert(0, [(0, 0, 0) for _ in range(GRID_WIDTH)])
-                lines_cleared += 1 # add new row at the top
+                lines_cleared += 1
+            else:
+                y -= 1
+
         if lines_cleared > 0:
             self.score += lines_cleared * 100 # increase score by 100 for each line cleared
+            print(f"Cleared {lines_cleared} line(s)!")
         return lines_cleared
