@@ -95,3 +95,23 @@ class Menu:
                             while self.game_instance.valid_move(self.game_instance.current_tetromino): #keep going until it hits something
                                 self.game_instance.current_tetromino.y += 1
                             self.game_instance.current_tetromino.y -= 1
+                            
+                            
+            if self.game_instance.state == "Game Over":
+                self.screen.fill(COLOR_BLACK)
+                self.text_menu(50, "GAME OVER", COLOR_RED, (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 50))
+                self.text_menu(25, f"Final Score: {self.game_instance.score}", COLOR_YELLOW, (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 20))
+                self.text_menu(20, "PRESS ANY KEY TO RESTART", COLOR_WHITE, (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100))
+                pygame.display.flip()
+                
+                waiting = True
+                while waiting:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            exit()
+                        if event.type == pygame.KEYDOWN: #reset game on key press
+                            self.game_instance = Game()
+                            self.fall_time = 0
+                            waiting = False
+                continue

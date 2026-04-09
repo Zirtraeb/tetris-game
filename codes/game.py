@@ -48,7 +48,12 @@ class Game:
                     if 0 <= grid_y < GRID_HEIGHT and 0 <= grid_x < GRID_WIDTH:
                         self.field[grid_y][grid_x] = piece.color
         self.clear_lines() #check full lines before new spawns
-        self.current_tetromino = Tetromino(GRID_WIDTH // 2, 1) # spawn new piece
+        new_piece = Tetromino(GRID_WIDTH // 2, 1) # spawn new piece
+        
+        if not self.valid_move(new_piece):
+            print("Game Over")
+            self.state = "Game Over"
+        self.current_tetromino = new_piece
 
 
 
