@@ -12,6 +12,8 @@ class Game:
         self.current_tetromino = Tetromino(5, 0)
         self.state = "Start"
         
+        
+        
     def valid_move(self, piece):
         shape_rotation = SHAPES[piece.shape]
         current_grid = shape_rotation[piece.rotation % len(shape_rotation)]
@@ -30,6 +32,8 @@ class Game:
                             return False
         return True
         
+        
+        
     def lock_piece(self, piece):
         print("Locking piece")
         shape_rotation = SHAPES[piece.shape]
@@ -44,5 +48,18 @@ class Game:
                         self.field[grid_y][grid_x] = piece.color
                     else:
                         print(f"Skipping out-of-bounds write at {grid_x}, {grid_y}")
-            
-        self.current_tetromino = Tetromino(GRID_WIDTH // 2, 1) #spawn new piece
+        self.clear_lines() #check full lines before new spawns
+        self.current_tetromino = Tetromino(GRID_WIDTH // 2, 1) # spawn new piece
+
+
+
+    def clear_lines(self):
+        lines_cleared = 0
+        for y in range (GRID_HEIGHT -1, -1, -1): # check from bottom to top
+            if (0, 0, 0)not in self.field[y]: # if there is no black
+                del self.field[y] # delete full row
+                self.field.insert(0, [(0, 0, 0) for _ in range(GRID_WIDTH)])
+                lines_cleared += 1 # add new row at the top
+        if lines_cleared > 0:
+            print(f"Cleared {lines_cleared} lines!")
+        return lines_cleared
