@@ -34,10 +34,9 @@ class Menu:
                                (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 +75))
                 self.text_menu(15, K_CONTROLS, COLOR_WHITE, 
                                (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 +100))
-                self.text_menu(20, "PRESS ANY KEY TO START", COLOR_YELLOW, 
-                               (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 +300))
+                self.text_menu(20, "PRESS ANY KEY TO START", COLOR_GREEN, 
+                               (WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 +250))
             else:
-                
                 grid_surface = self.game_instance.display.grid()
                 self.screen.blit(grid_surface, (0, 0))
                 self.game_instance.display.draw_field(self.screen, self.game_instance.field)
@@ -45,18 +44,20 @@ class Menu:
 
                 score_text = f"Score: {self.game_instance.score}"
                 self.text_menu(25, score_text, COLOR_GREEN, (WINDOW_WIDTH - SIDEBAR_WIDTH // 2, 30))
-                
+
             pygame.display.flip()
 
-            self.fall_time += self.clock.get_rawtime()
-            self.clock.tick()
-            
-            if self.fall_time >= self.fall_speed:
-                self.fall_time = 0
-                self.game_instance.current_tetromino.y += 1
-                if not self.game_instance.valid_move(self.game_instance.current_tetromino):
-                    self.game_instance.current_tetromino.y -= 1
-                    self.game_instance.lock_piece(self.game_instance.current_tetromino) #lock piece in place if it can't move down
+            if not self.show_splash:
+                self.fall_time += self.clock.get_rawtime()
+                self.clock.tick()
+                
+                if self.fall_time >= self.fall_speed:
+                    self.fall_time = 0
+                    self.game_instance.current_tetromino.y += 1
+                    if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                        self.game_instance.current_tetromino.y -= 1
+                        self.game_instance.lock_piece(self.game_instance.current_tetromino)  # lock piece in place if it can't move down
+
             
 
             for event in pygame.event.get():
@@ -67,6 +68,7 @@ class Menu:
                 if event.type == pygame.KEYDOWN:
                     if self.show_splash:
                         self.show_splash = False
+                        self.fall_time = 0 # reset fall time when starting game
                         
                     else:                        
                         if event.key == pygame.K_UP:  # rotate
