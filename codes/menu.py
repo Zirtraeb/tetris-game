@@ -8,7 +8,10 @@ class Menu:
         pygame.init()
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.show_splash = True 
-        self.game_instance = Game()#initial screen
+        self.game_instance = Game()  # initial screen
+        self.fall_time = 0
+        self.fall_speed = 500
+        self.clock = pygame.time.Clock()
 
     def text_menu(self, text_size, text, text_color, text_center_pos):
         font = pygame.font.SysFont('arial', text_size, bold=True)
@@ -41,6 +44,17 @@ class Menu:
                 self.game_instance.display.draw_tetromino(self.screen, self.game_instance.current_tetromino)
 
             pygame.display.flip()
+
+            self.fall_time += self.clock.get_rawtime()
+            self.clock.tick()
+            
+            if self.fall_time >= self.fall_speed:
+                self.fall_time = 0
+                self.game_instance.current_tetromino.y += 1
+                if not self.game_instance.valid_move(self.game_instance.current_tetromino):
+                    self.game_instance.current_tetromino.y -= 1
+                    self.game_instance.lock_piece(self.game_instance.current_tetromino) #lock piece in place if it can't move down
+            
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

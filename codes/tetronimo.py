@@ -15,10 +15,3 @@ class Tetromino:
     def rotate(self):
         self.rotation = (self.rotation + 1) % len(SHAPES[self.shape])
     
-    ''' def get_position(self):
-        blocks = []
-        for i in range(len(SHAPES[self.shape][self.rotation])):
-            for j in range(len(SHAPES[self.shape][self.rotation][i])):
-                if SHAPES[self.shape][self.rotation][i][j] == 1:
-                    blocks.append((self.x + j, self.y + i))
-        return blocks'''

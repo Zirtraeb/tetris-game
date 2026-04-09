@@ -45,4 +45,4 @@ class Game:
                     else:
                         print(f"Skipping out-of-bounds write at {grid_x}, {grid_y}")
             
-        self.current_tetromino = Tetromino(GRID_WIDTH // 2, 0) #spawn new piece
+        self.current_tetromino = Tetromino(GRID_WIDTH // 2, 1) #spawn new piece
