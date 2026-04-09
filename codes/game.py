@@ -11,6 +11,7 @@ class Game:
         self.field = [[(0, 0, 0) for _ in range(GRID_WIDTH)] for _ in range(GRID_HEIGHT)]
         self.current_tetromino = Tetromino(5, 0)
         self.state = "Start"
+        self.score = 0 # initial score
         
         
         
@@ -46,8 +47,6 @@ class Game:
                     grid_x = piece.x + col_index
                     if 0 <= grid_y < GRID_HEIGHT and 0 <= grid_x < GRID_WIDTH:
                         self.field[grid_y][grid_x] = piece.color
-                    else:
-                        print(f"Skipping out-of-bounds write at {grid_x}, {grid_y}")
         self.clear_lines() #check full lines before new spawns
         self.current_tetromino = Tetromino(GRID_WIDTH // 2, 1) # spawn new piece
 
@@ -61,5 +60,5 @@ class Game:
                 self.field.insert(0, [(0, 0, 0) for _ in range(GRID_WIDTH)])
                 lines_cleared += 1 # add new row at the top
         if lines_cleared > 0:
-            print(f"Cleared {lines_cleared} lines!")
+            self.score += lines_cleared * 100 # increase score by 100 for each line cleared
         return lines_cleared

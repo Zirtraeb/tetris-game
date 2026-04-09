@@ -43,6 +43,9 @@ class Menu:
                 self.game_instance.display.draw_field(self.screen, self.game_instance.field)
                 self.game_instance.display.draw_tetromino(self.screen, self.game_instance.current_tetromino)
 
+                score_text = f"Score: {self.game_instance.score}"
+                self.text_menu(25, score_text, COLOR_GREEN, (WINDOW_WIDTH - SIDEBAR_WIDTH // 2, 30))
+                
             pygame.display.flip()
 
             self.fall_time += self.clock.get_rawtime()
